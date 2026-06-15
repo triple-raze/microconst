@@ -1,0 +1,74 @@
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D",     # Docstring warnings
+    "INP001" # Implicit namespace package 
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    "S101",    # Assert used
+    "PLR2004", # Magic value
+]   
+
+
+[tool.mypy]
+exclude = ["example/"]
+strict = true
+
+disallow_untyped_defs = true 
+disallow_untyped_calls = true
+check_untyped_defs = true    
+
+warn_return_any = true              
+disallow_any_explicit = true       
+disallow_any_unimported = true      
+disallow_any_decorated = true       
+disallow_any_expr = true            
+disallow_any_generics = true
+
+no_implicit_optional = true       
+strict_equality = true            
+strict_concatenate = true         
+local_partial_types = true        
+
+no_implicit_reexport = true          
+
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "microconst"      
+version = "0.1.0"               
+description = "Library for optimizing enum constant values"             
+
+requires-python = ">=3.12"  
+
+readme = "README.md"
+license = "MIT"    
+authors = [{name = "triple-raze", email = "weebucks2@gmail.com"}]                    
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Typing :: Typed"
+]
+keywords = ["enum", "compact"]
+
+
+[project.urls]
+"Homepage" = "https://github.com/triple-raze/microconst"
+"Repository" = "https://github.com/triple-raze/microconst.git"
+"Issues" = "https://github.com/triple-raze/microconst/issues"
