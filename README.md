@@ -5,7 +5,7 @@
 ![tests](https://img.shields.io/badge/tests-manual-green) 
 ![license](https://img.shields.io/badge/license-MIT-blue)
 
-Replace long constant names with 2 ASCII keys
+Replace long constant names with 2 ASCII characters
 
 ## Installation
 pip: 
