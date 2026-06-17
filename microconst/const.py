@@ -12,12 +12,12 @@ MAX_IDX = len(DEFAULT_CHARACTERS) - 1
 MAX_CONSTS = len(DEFAULT_CHARACTERS) ** 2
 
 
-def create_unique_const_generator(characters: str) -> Generator[str, None, None]:
+def create_unique_const_generator() -> Generator[str, None, None]:
     left_idx: int = 0
     right_idx: int = 0
 
     while right_idx != MAX_IDX + 1:
-        pair: str = characters[left_idx] + characters[right_idx]
+        pair: str = DEFAULT_CHARACTERS[left_idx] + DEFAULT_CHARACTERS[right_idx]
 
         if left_idx == MAX_IDX:
             left_idx = 0
@@ -31,4 +31,4 @@ def create_unique_const_generator(characters: str) -> Generator[str, None, None]
     raise OverflowError(msg)
 
 
-unique_const_generator = create_unique_const_generator(DEFAULT_CHARACTERS)
+unique_const_generator = create_unique_const_generator()
