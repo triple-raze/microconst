@@ -19,18 +19,18 @@ poetry add microconst
 
 ## Features
 #### Constants
-Every call of `flag` or `key` generates 2-character key. This key is represented as left and right indexes of `f"{ascii_letters}{digits}"` str. Each time the left index reaches cap, it resets to 0 and right index increments.<br>
-After reaching both of caps, next call of function will throw `OverflowError`. Current maximum count of keys is 3844.
+Every call of `flag` or `key` generates 2-character constant. This constant is represented as left and right indexes of `f"{ascii_letters}{digits}"` str. Each time the left index reaches cap, it resets to 0 and right index increments.<br>
+After reaching both of caps, next call of function will throw `OverflowError`. Current maximum count of constants is 3844.
 
 #### Typing
-`key` function requires `value_type` argument, such as `str`, `int` etc. This type used in both static analysis and type convertion with `Key.parse_entry(data)` function. 
+`key` function requires `value_type` argument, such as `str`, `int` etc. This type used in both static analysis and type conversion with `Key.parse_entry` function. 
 
 ## Examples
 Main purpose of this library is making telegram bot's "callback_data" much more compact because of 64-byte limit. You can see more realistic example [here](example)<br><br>
 #### Flag usage
 Before:
 ```python
-from enum import StrEnum, auto()
+from enum import StrEnum, auto
 
 # Some very strict limit
 MAX_LEN: int = 4
@@ -41,7 +41,7 @@ class Status(StrEnum):
     REJECTED = auto()
 
 assert Status.PENDING == "pending"
-assert len(Status.PENDING) > MAX_LEN  # Too long! 
+assert len(Status.PENDING) > MAX_LEN  # Too long
 ```
 After:
 ```python
@@ -65,34 +65,45 @@ Before:
 from enum import StrEnum, auto
 
 class Data(StrEnum):
-    USER = auto()
+    USERNAME = auto()
     ORDER = auto()
 
-username = Data.USER + name
+# You should use separator because of varying character count in key
+username = Data.USERNAME + ":" + "name"
+assert username == "username:name"  # Too long
+
+value = username.split(":")[1]
+assert value == "name"
+
+order = Data.ORDER + ":" + str(1337)
+assert order == "order:1337"
+
+# Order doesnt contain its type anywhere, so you should convert types each time
+assert int(order.split(":")[1]) == 1337
 
 ```
+After:
 ```python
 from microconst import key, parse_entry
 
 class Data:
-    USER = key(str)
+    USERNAME = key(str)
     ORDER = key(int)
 
 # You can call keys to create key-value pair (acts same as concat)
-username = Data.USER("name") 
+username = Data.USERNAME("name")
 assert username == "aaname"
 
 # Getting value
-value = Data.USER.parse_entry(username) 
+value = Data.USERNAME.parse_entry(username)
 assert value == "name"
 
 order = Data.ORDER(1337)
 assert order == "ba1337"
 
-# You can use seperate function or method. Method doesnt require type argument
+# You can use separate function or method. Method doesnt require type argument
 assert parse_entry(order, int) == 1337
 assert Data.ORDER.parse_entry(order) == 1337
-
 ```
 
 ## License
