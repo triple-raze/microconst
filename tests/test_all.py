@@ -18,4 +18,6 @@ def test_value_extraction() -> None:
 
     assert int_key.parse_entry(data) == 123
 
+    assert data.value == 123
+
     assert parse_entry("aa1.2", float) == 1.2

@@ -27,9 +27,27 @@ After reaching both of caps, next call of function will throw `OverflowError`. C
 
 ## Examples
 Main purpose of this library is making telegram bot's "callback_data" much more compact because of 64-byte limit. You can see more realistic example [here](example)<br><br>
-#### Flag usage:
+#### Flag usage
+Before:
+```python
+from enum import StrEnum, auto()
+
+# Some very strict limit
+MAX_LEN: int = 4
+
+class Status(StrEnum):
+    PENDING = auto()
+    APPROVED = auto()
+    REJECTED = auto()
+
+assert Status.PENDING == "pending"
+assert len(Status.PENDING) > MAX_LEN  # Too long! 
+```
+After:
 ```python
 from microconst import flag
+
+MAX_LEN: int = 4
 
 # Autogenerates unique pairs of characters
 class Status:
@@ -38,26 +56,43 @@ class Status:
     REJECTED = flag()
 
 assert Status.PENDING == "aa"
-assert Status.APPROVED == "ba"
-assert Status.REJECTED == "ca"
+assert len(Status.PENDING) < MAX_LEN 
 ```
 
-#### Key usage:
+#### Key usage
+Before:
+```python
+from enum import StrEnum, auto
+
+class Data(StrEnum):
+    USER = auto()
+    ORDER = auto()
+
+username = Data.USER + name
+
+```
 ```python
 from microconst import key, parse_entry
 
-USER = key(str)
+class Data:
+    USER = key(str)
+    ORDER = key(int)
 
 # You can call keys to create key-value pair (acts same as concat)
-username = USER("name") 
-# Getting value
-value = USER.parse_entry(username) 
-
+username = Data.USER("name") 
 assert username == "aaname"
+
+# Getting value
+value = Data.USER.parse_entry(username) 
 assert value == "name"
 
+order = Data.ORDER(1337)
+assert order == "ba1337"
+
 # You can use seperate function or method. Method doesnt require type argument
-assert parse_entry(username, str) == value
+assert parse_entry(order, int) == 1337
+assert Data.ORDER.parse_entry(order) == 1337
+
 ```
 
 ## License
