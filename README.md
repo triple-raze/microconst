@@ -106,5 +106,20 @@ assert parse_entry(order, int) == 1337
 assert Data.ORDER.parse_entry(order) == 1337
 ```
 
+#### Key usage (literals)
+Unique feature, it's hard to implement, so no comprasion before and after:
+```python
+from microconst import key, parse_entry
+
+class Data:
+    ORDER = key(Literal[1, 2, 3])
+
+assert Data.ORDER(1) == "aa1"
+# assert Data.ORDER(4) == "aa4"  # Mypy error
+
+assert Data.ORDER.parse_entry("__3") == 3
+# assert Data.ORDER.parse_entry("__10") == 10  # Mypy error
+```
+
 ## License
 MIT

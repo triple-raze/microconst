@@ -17,13 +17,15 @@ ignore = [
 
 [tool.mypy]
 exclude = ["example/"]
+enable_incomplete_feature = ["TypeForm"]
+
 strict = true
 
 disallow_untyped_defs = true 
 disallow_untyped_calls = true
 check_untyped_defs = true    
 
-warn_return_any = true              
+warn_return_any = true            
 disallow_any_explicit = true       
 disallow_any_unimported = true      
 disallow_any_decorated = true       
@@ -45,7 +47,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "microconst"      
-version = "0.1.1"               
+version = "0.2.0"               
 description = "Library for optimizing enum constant values"             
 
 requires-python = ">=3.12"  

@@ -1,5 +1,5 @@
-from microconst.members import create_flag as flag
-from microconst.members import create_key as key
+from microconst.factories import create_flag as flag
+from microconst.factories import create_key as key
 from microconst.types import Entry, Key
 from microconst.utils import parse_entry
 
