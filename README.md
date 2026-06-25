@@ -26,7 +26,7 @@ After reaching both of caps, next call of function will throw `OverflowError`. C
 `key` function requires `value_type` argument, such as `str`, `int` etc. This type used in both static analysis and type conversion with `Key.parse_entry` function. 
 
 ## Examples
-Main purpose of this library is making telegram bot's "callback_data" much more compact because of 64-byte limit. You can see more realistic example [here](example)<br><br>
+Main purpose of this library is making telegram bot's "callback_data" much more compact because of 64-byte limit. You can see more realistic example [here](example)<br>
 #### Flag usage
 Before:
 ```python
